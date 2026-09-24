@@ -33,6 +33,7 @@ export const env = createEnv({
     R2_PUBLIC_BASE_URL: z.string().optional(),
 
     BLOB_READ_WRITE_TOKEN: z.string().optional(),
+    BLOB_ACCESS: z.enum(["public", "private"]).optional(),
 
     HCAPTCHA_SECRET: z.string().optional(),
 

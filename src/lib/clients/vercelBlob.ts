@@ -7,9 +7,11 @@ import { BlobNotFoundError, del, get, head, put } from "@vercel/blob";
 
 export class VercelBlob {
   private token: string;
+  private access: "public" | "private";
 
   constructor(credentials: VercelBlobCredentials) {
     this.token = credentials.token;
+    this.access = credentials.access;
   }
 
   async exists(key: string): Promise<boolean> {
@@ -39,7 +41,7 @@ export class VercelBlob {
   async upload(opts: ICreateFileOptions): Promise<void> {
     await put(opts.key, opts.data, {
       token: this.token,
-      access: "public",
+      access: this.access,
       addRandomSuffix: false,
       allowOverwrite: true,
       contentType: opts.mimeType,
@@ -67,7 +69,10 @@ export class VercelBlob {
   }
 
   private async fetch(key: string): Promise<Readable | null> {
-    const result = await get(key, { token: this.token, access: "public" });
+    const result = await get(key, {
+      token: this.token,
+      access: this.access,
+    });
 
     if (!result || result.statusCode !== 200 || !result.stream) {
       return null;

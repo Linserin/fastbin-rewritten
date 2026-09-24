@@ -152,6 +152,10 @@ Set the storage strategy to `vercel-blob` and provide the read/write token via
 the `BLOB_READ_WRITE_TOKEN` environment variable. When hosting on Vercel and
 using a connected Blob store, this variable is populated automatically.
 
+If your Blob store is configured with **private** access, set `BLOB_ACCESS` to
+`private` so uploads and reads use authenticated access. It defaults to
+`public` for public stores.
+
 ## hCaptcha
 
 fastbin can require an [hCaptcha](https://www.hcaptcha.com/) challenge before a

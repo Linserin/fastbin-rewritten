@@ -56,6 +56,7 @@ export class VercelBlobStorageStrategy implements IStorageStrategy {
 
     return {
       token: env.BLOB_READ_WRITE_TOKEN as string,
+      access: env.BLOB_ACCESS ?? "public",
     };
   }
 }

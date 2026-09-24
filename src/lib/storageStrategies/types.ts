@@ -25,6 +25,7 @@ export type FirebaseCredentials = {
 
 export type VercelBlobCredentials = {
   token: string;
+  access: "public" | "private";
 };
 
 export type StorageStrategyCredentials =
