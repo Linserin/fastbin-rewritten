@@ -42,6 +42,7 @@ export async function verifyCaptcha(
 
   const params = new URLSearchParams({
     secret: env.HCAPTCHA_SECRET as string,
+    sitekey: env.NEXT_PUBLIC_HCAPTCHA_SITE_KEY as string,
     response: token,
   });
 
@@ -51,6 +52,9 @@ export async function verifyCaptcha(
 
   try {
     console.log("[captcha] Verifying token with hCaptcha siteverify.", {
+      sitekey: env.NEXT_PUBLIC_HCAPTCHA_SITE_KEY,
+      secretLength: (env.HCAPTCHA_SECRET as string).length,
+      secretPrefix: (env.HCAPTCHA_SECRET as string).slice(0, 4),
       remoteIp: remoteIp ?? null,
       tokenLength: token.length,
     });
@@ -59,6 +63,7 @@ export async function verifyCaptcha(
       method: "POST",
       body: params,
       cache: "no-store",
+      signal: AbortSignal.timeout(10000),
     });
 
     if (!response.ok) {
