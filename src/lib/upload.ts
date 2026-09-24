@@ -34,6 +34,12 @@ const upload = (
       return reject("Contents is too short.");
     }
 
+    console.log("[captcha] Uploading snippet.", {
+      hasCaptchaToken: Boolean(captchaToken),
+      languageId,
+      length: contents.length,
+    });
+
     return fetch("/api/documents", {
       method: "POST",
       headers: {
@@ -44,7 +50,15 @@ const upload = (
       credentials: "same-origin",
       body: contents,
     })
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) {
+          console.warn("[captcha] Upload request returned a non-OK status.", {
+            status: res.status,
+            hasCaptchaToken: Boolean(captchaToken),
+          });
+        }
+        return res.json();
+      })
       .then((json) => {
         if (!json.ok) {
           return reject(json.error);

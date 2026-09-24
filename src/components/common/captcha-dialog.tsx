@@ -50,8 +50,19 @@ export function CaptchaDialog({
             ref={captchaRef}
             sitekey={siteKey}
             theme={resolvedTheme === "dark" ? "dark" : "light"}
-            onVerify={onVerify}
-            onExpire={() => captchaRef.current?.resetCaptcha()}
+            onVerify={(token) => {
+              console.log("[captcha] hCaptcha challenge solved on the client.", {
+                tokenLength: token?.length ?? 0,
+              });
+              onVerify(token);
+            }}
+            onError={(err) => {
+              console.error("[captcha] hCaptcha widget error.", err);
+            }}
+            onExpire={() => {
+              console.warn("[captcha] hCaptcha token expired; resetting.");
+              captchaRef.current?.resetCaptcha();
+            }}
           />
         </div>
 

@@ -102,10 +102,12 @@ export function EditorView({
     }
 
     if (isCaptchaEnabled) {
+      console.log("[captcha] Captcha is enabled; opening challenge dialog.");
       setIsCaptchaOpen(true);
       return;
     }
 
+    console.log("[captcha] Captcha is disabled; uploading directly.");
     await runUpload();
   }, [readOnly, runUpload]);
 
