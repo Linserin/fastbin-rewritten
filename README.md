@@ -116,9 +116,9 @@ yarn start
 ## Storage Strategies
 
 At the moment, fastbin can store snippets using three different strategies:
-`file`, `s3`, `r2`, `firebase`. You can specify which one you want to use by
-changing the value of the `STORAGE_STRATEGY` environment variable inside of your
-`.env` file from `file` to any of the ones mentioned earlier.
+`file`, `s3`, `r2`, `firebase`, `vercel-blob`. You can specify which one you
+want to use by changing the value of the `STORAGE_STRATEGY` environment variable
+inside of your `.env` file from `file` to any of the ones mentioned earlier.
 
 Some storage strategies require additional configuration.
 
@@ -144,6 +144,27 @@ You need to specify the name of the Firebase Storage bucket\* inside of the
 credentials certificate in the `FIREBASE_SERVICE_ACCOUNT` environment variable.
 
 \*Make sure you only specify the bucket's name, WITHOUT ".appspot.com".
+
+### VercelBlobStorageStrategy
+
+fastbin supports [Vercel Blob](https://vercel.com/docs/storage/vercel-blob).
+Set the storage strategy to `vercel-blob` and provide the read/write token via
+the `BLOB_READ_WRITE_TOKEN` environment variable. When hosting on Vercel and
+using a connected Blob store, this variable is populated automatically.
+
+## hCaptcha
+
+fastbin can require an [hCaptcha](https://www.hcaptcha.com/) challenge before a
+snippet is saved. This is disabled by default. To enable it, set both:
+
+- `NEXT_PUBLIC_HCAPTCHA_SITE_KEY` – your hCaptcha site key (exposed to the
+  client); and
+- `HCAPTCHA_SECRET` – your hCaptcha secret key (used server-side to verify the
+  token).
+
+When enabled, the server rejects any upload that does not include a valid
+hCaptcha token. Note that this also applies to Haste clients, which cannot solve
+the challenge unless they support sending the `X-HCaptcha-Token` header.
 
 ## BREAKING CHANGES IN v3
 

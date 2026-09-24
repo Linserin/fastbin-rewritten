@@ -27,6 +27,7 @@ const getKeyWithExtension = (key: string, languageId: string): string => {
 const upload = (
   contents: string,
   languageId: string,
+  captchaToken?: string,
 ): Promise<UploadResult> => {
   return new Promise((resolve, reject) => {
     if (!contents.length) {
@@ -38,6 +39,7 @@ const upload = (
       headers: {
         Accept: "text/plain",
         "Content-Type": "text/plain",
+        ...(captchaToken ? { "X-HCaptcha-Token": captchaToken } : {}),
       },
       credentials: "same-origin",
       body: contents,

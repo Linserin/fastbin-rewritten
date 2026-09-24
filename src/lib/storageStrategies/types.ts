@@ -23,7 +23,14 @@ export type FirebaseCredentials = {
   bucketName: string;
 };
 
-export type StorageStrategyCredentials = S3Credentials | R2Credentials;
+export type VercelBlobCredentials = {
+  token: string;
+};
+
+export type StorageStrategyCredentials =
+  | S3Credentials
+  | R2Credentials
+  | VercelBlobCredentials;
 
 export type SupportedStorageStrategy = Env["STORAGE_STRATEGY"];
 
