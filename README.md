@@ -115,7 +115,7 @@ yarn start
 
 ## Storage Strategies
 
-At the moment, fastbin can store snippets using three different strategies:
+At the moment, fastbin can store snippets using 5 different strategies:
 `file`, `s3`, `r2`, `firebase`, `vercel-blob`. You can specify which one you
 want to use by changing the value of the `STORAGE_STRATEGY` environment variable
 inside of your `.env` file from `file` to any of the ones mentioned earlier.
@@ -148,9 +148,7 @@ credentials certificate in the `FIREBASE_SERVICE_ACCOUNT` environment variable.
 ### VercelBlobStorageStrategy
 
 fastbin supports [Vercel Blob](https://vercel.com/docs/storage/vercel-blob).
-Set the storage strategy to `vercel-blob` and provide the read/write token via
-the `BLOB_READ_WRITE_TOKEN` environment variable. When hosting on Vercel and
-using a connected Blob store, this variable is populated automatically.
+Set the storage strategy to `vercel-blob` and connect Vercel Blob with `Add a read-write token env var to this connection`.
 
 If your Blob store is configured with **private** access, set `BLOB_ACCESS` to
 `private` so uploads and reads use authenticated access. It defaults to
@@ -175,6 +173,8 @@ the challenge unless they support sending the `X-HCaptcha-Token` header.
 - The environment variables for the S3 storage strategy have been changed;
 - Specifying the service account for the Firebase storage strategy is now only
 possible through the `FIREBASE_SERVICE_ACCOUNT` environment variable.
+- [Vercel Blob](https://vercel.com/docs/storage/vercel-blob) supports.
+- You can choose to enable [hCaptcha](https://www.hcaptcha.com) to avoid abuse.
 
 ## Contribution
 
